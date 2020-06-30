@@ -59,6 +59,16 @@ def post_member():
     response = jackson_family.add_member(body)
     return jsonify(response), 200
 
+@app.route('/member/<int:id>', methods=['DELETE'])
+def handle_del_member(id):
+    # this is how you can use the Family datastructure by calling its methods
+    member = jackson_family.delete_member(id)
+    if member:
+        return jsonify(member), 200    
+    else:
+        return 'member not found', 400
+
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
